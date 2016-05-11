@@ -37,9 +37,35 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map(Router $router)
     {
-        $this->mapWebRoutes($router);
 
-        //
+
+                /*
+        |--------------------------------------------------------------------------
+        | Web Router 
+        |--------------------------------------------------------------------------
+        */
+
+        $router->group([
+                'namespace' => $this->namespace,
+                'middleware' => 'web',
+            ], function ($router) {
+            require app_path('Http/routes.web.php');
+        });
+
+                /*
+        |--------------------------------------------------------------------------
+        | User Router 
+        |--------------------------------------------------------------------------
+        */
+
+        $router->group([
+                'namespace' => $this->namespace,
+                'middleware' => 'web',
+            ], function ($router) {
+            require app_path('Http/routes.user.php');
+        });
+
+
     }
 
     /**
@@ -50,12 +76,14 @@ class RouteServiceProvider extends ServiceProvider
      * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    protected function mapWebRoutes(Router $router)
-    {
-        $router->group([
-            'namespace' => $this->namespace, 'middleware' => 'web',
-        ], function ($router) {
-            require app_path('Http/routes.php');
-        });
-    }
+
+
+    // protected function mapWebRoutes(Router $router)
+    // {
+    //     $router->group([
+    //         'namespace' => $this->namespace, 'middleware' => 'web',
+    //     ], function ($router) {
+    //         require app_path('Http/routes.php');
+    //     });
+    // }
 }
