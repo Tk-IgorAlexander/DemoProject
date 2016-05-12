@@ -14,4 +14,9 @@
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
 	Route::get('/admin/books', 'BookController@showBooks');
+
+	Route::get('/admin/books/addBook', 'BookController@addBook');
+	Route::post('/admin/books/addBook', 'BookController@storeBook');
+
+	Route::post('/admin/books/{book}', 'BookController@editBook');
 });

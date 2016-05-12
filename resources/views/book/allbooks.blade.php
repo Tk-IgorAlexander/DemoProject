@@ -39,8 +39,18 @@
 								@endforeach
 							</tbody>
 						</table>
-					
+						<div class="col-md-offset-10">
+							<form action="/admin/books/addBook" method="GET">
+								{{ csrf_field() }}
+								<div class="form-group">
+									<button type="submit" class="btn btn-primary">
+										<i class="fa fa-btn fa-plus"></i>Agregar Libro
+									</button>
+								</div>
+							</form>
+						</div>					
 				</div>
+				
 			</div>
 		</div>
 	</div>

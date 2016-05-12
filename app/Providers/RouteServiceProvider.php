@@ -65,6 +65,19 @@ class RouteServiceProvider extends ServiceProvider
             require app_path('Http/routes.user.php');
         });
 
+        /*
+        |--------------------------------------------------------------------------
+        | Books Router 
+        |--------------------------------------------------------------------------
+        */
+
+        $router->group([
+                'namespace' => $this->namespace,
+                'middleware' => 'web',
+            ], function ($router) {
+            require app_path('Http/routes.book.php');
+        });
+
 
     }
 
