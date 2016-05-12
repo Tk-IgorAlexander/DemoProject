@@ -14,16 +14,16 @@ class Book extends Model
     //
     public function author()
     {
-        return $this->hasOne('App\Author', 'author_id', 'id');
+        return $this->hasOne('App\Author', 'id', 'author_id');
     }
 
     public function country()
     {
-        return $this->hasOne('App\Country', 'country_id', 'id');
+        return $this->hasOne('App\Country', 'id', 'country_id');
     }
 
     public function publisher()
     {
-        return $this->hasOne('App\Publisher', 'publisher_id', 'id');
+        return $this->hasOne('App\Publisher', 'id', 'publisher_id');
     }
 }

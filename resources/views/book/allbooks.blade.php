@@ -13,33 +13,29 @@
 						<table class="table table-striped task-table">
 							<thread>
 								<th>ID</th>
-								<th>Nombre</th>
+								<th>Titulo</th>
 								<th>Autor</th>
+								<th>Año</th>
 								<th>&nbsp;</th>
 							</thread>
 							<tbody>
-								@foreach ($users as $user)
-									@if ($user->getType() == 1)
+								@foreach ($books as $book)
 									<tr>
 										
-										<td>{{$user->id}}</td>
-										<td>{{$user->name}}</td>
-										<td>{{$user->email}}</td>
+										<td>{{$book->id}}</td>
+										<td>{{$book->title}}</td>
+										<td>{{$book->author->last_name.', '.$book->author->first_name}}</td>
+										<td>{{$book->year}}</td>
 										<td>
-										{{--
-										@if ($user->isApproved() == false)
-											<form action="/auth/{{$user->id}}" method="POST">
+											<form action="/admin/books/{{$book->id}}" method="POST">
 												{{ csrf_field() }}
-												<button type="submit" class="btn btn-primary">
-													Aprobar
+												<button type="submit" class="btn btn-default btn-xs">
+													<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 												</button>
 											</form>
-										@endif
-										--}}
 										</td>
 										
 									</tr>
-									@endif
 								@endforeach
 							</tbody>
 						</table>
