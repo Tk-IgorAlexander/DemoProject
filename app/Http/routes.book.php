@@ -18,5 +18,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 	Route::get('/admin/books/addBook', 'BookController@addBook');
 	Route::post('/admin/books/addBook', 'BookController@storeBook');
 
-	Route::post('/admin/books/{book}', 'BookController@editBook');
+	Route::get('/admin/books/{book}', 'BookController@editBook');
+	Route::post('/admin/books/{book}/confirm', 'BookController@modBook');
 });

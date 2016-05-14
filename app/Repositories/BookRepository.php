@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Book;
 use App\Author;
+use App\Publisher;
 
 class BookRepository
 {
@@ -25,5 +26,13 @@ class BookRepository
         return Author::orderBy('last_name','asc')
                     ->orderBy('first_name','asc')
                     ->get();
+    }
+    public function countAuthors()
+    {
+        return Author::count();
+    }
+    public function countPublishers()
+    {
+        return Publisher::count();
     }
 }

@@ -27,7 +27,7 @@
 										<td>{{$book->author->last_name.', '.$book->author->first_name}}</td>
 										<td>{{$book->year}}</td>
 										<td>
-											<form action="/admin/books/{{$book->id}}" method="POST">
+											<form action="/admin/books/{{$book->id}}" method="GET">
 												{{ csrf_field() }}
 												<button type="submit" class="btn btn-default btn-xs">
 													<i class="fa fa-pencil-square-o" aria-hidden="true"></i>

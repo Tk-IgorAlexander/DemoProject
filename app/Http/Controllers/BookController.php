@@ -36,10 +36,16 @@ class BookController extends Controller
 
     public function storeBook(Request $request)
     {
-        //Falta validar
-        /*$this->validate($request, [
-            'name' => 'required|max:255',
-        ]);*/
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'author_id' => 'required|exists:authors,id',
+            'publisher_id' => 'integer|exists:publishers,id',
+            'country_id' => 'integer',
+            'stock' => 'integer|max:1000',
+            'isbn' => 'digits:13|unique:books',
+            'year' => 'digits:4',
+            'image_path' => 'active_url'
+        ]);
         Book::create([
             'title' => $request->title,
             'author_id' => $request->author_id,
@@ -53,4 +59,24 @@ class BookController extends Controller
             ]);
         return redirect('/admin/books');
     }
+
+    public function editBook(Request $request, Book $book)
+    {
+        return view('book.modBook', [
+            'book' => $book
+            ]);
+    }
+
+    public function modBook(Request $request, Book $book)
+    {
+        $this->validate($request, [
+            'stock' => 'integer|max:1000',
+            'image_path' => 'active_url'
+        ]);
+        $book->stock = $request->stock;
+        $book->image_path = $request->image_path;
+        $book->save();
+        return redirect('/admin/books');
+    }
 }
+
