@@ -27,7 +27,7 @@
 										<td>{{$book->author->last_name.', '.$book->author->first_name}}</td>
 										<td>{{$book->year}}</td>
 										<td>
-											<form action="/admin/books/{{$book->id}}" method="GET">
+											<form action="{{route('editBook', $book->id)}}" method="GET">
 												{{ csrf_field() }}
 												<button type="submit" class="btn btn-default btn-xs">
 													<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -40,7 +40,7 @@
 							</tbody>
 						</table>
 						<div class="col-md-offset-10">
-							<form action="/admin/books/addBook" method="GET">
+							<form action="{{route('addBook')}}" method="GET">
 								{{ csrf_field() }}
 								<div class="form-group">
 									<button type="submit" class="btn btn-primary">
