@@ -23,8 +23,11 @@ class Authenticate
             } else {
                 return redirect()->guest('login');
             }
+        } elseif (Auth::check() && Auth::user()->isVerified())
+        {
+            return $next($request);
         }
 
-        return $next($request);
+        return redirect('/user/notVerified');
     }
 }

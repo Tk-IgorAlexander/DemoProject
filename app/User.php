@@ -48,4 +48,15 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function isVerified()
+    {
+        return $this->verification_status;
+    }
+
+    public function approveUser()
+    {
+        $this->verification_status = true;
+        return $this->save();
+    }
 }
