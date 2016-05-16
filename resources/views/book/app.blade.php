@@ -52,6 +52,8 @@
                     @elseif(Auth::user()->isAdmin())
                         <li><a href="{{ url('/admin/users') }}">Usuarios</a></li>
                         <li><a href="{{ url('/admin/books') }}">Libros</a></li>
+                    @else
+                        <li><a href="{{ url('/user/books') }}">Libros</a></li>
                     @endif
                 </ul>
 

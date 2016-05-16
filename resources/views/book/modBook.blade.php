@@ -9,7 +9,7 @@
 					Registrar Libro
 				</div>
 				<div class="panel-body">
-					<form action="/admin/books/{{$book->id}}/confirm" method="POST" class="form-horizontal">
+					<form action="{{route('modBook', $book->id)}}" method="POST" class="form-horizontal">
 					{{ csrf_field() }}
 					  <fieldset disabled>	
 						<div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
