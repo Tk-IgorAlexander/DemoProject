@@ -20,6 +20,21 @@ class BookRepository
                     ->get();
     }
 
+    /**
+     * Find a book by its title or author
+     */
+    public function findBook($string)
+    {
+        return Book::join('authors', 'books.author_id', '=', 'authors.id')
+                ->select('books.*')
+                ->where('books.title', 'like', '%' . $string . '%')
+                ->orWhere('authors.last_name', 'like', '%' . $string . '%')
+                ->orWhere('authors.first_name', 'like', '%' . $string . '%')
+                ->orderBy('authors.last_name','asc')
+                ->orderBy('authors.first_name','asc')
+                ->get();
+    }
+
     public function getAuthors()
     {
         return Author::orderBy('last_name','asc')

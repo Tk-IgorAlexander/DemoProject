@@ -26,4 +26,9 @@ class Book extends Model
     {
         return $this->hasOne('App\Publisher', 'id', 'publisher_id');
     }
+
+    public function issued_logs()
+    {
+        return $this->hasMany('App\IssuedLogs', 'book_id', 'id');
+    }
 }

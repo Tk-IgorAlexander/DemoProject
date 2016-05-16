@@ -9,12 +9,12 @@
 					Libros
 				</div>
 				<div class="panel-body">
-					<form action="/user/books" method="POST" class="form-horizontal">
+					<form action="{{route('findBook')}}" method="POST" class="form-horizontal">
 						{{ csrf_field() }}
 						<div class="form-group">
 							<label class="col-md-4 control-label">Buscar Libro:</label>
 							<div class="col-md-6">
-								<input class="form-control" name="title" placeholder="Titulo o Autor del libro" value="{{ old('title') }}">
+								<input class="form-control" name="str" placeholder="Titulo o Autor del libro" value="{{ old('str') }}">
 								@if ($errors->has('title'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('title') }}</strong>
@@ -24,7 +24,7 @@
 						</div>
 						<div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
+								<button type="submit" class="btn btn-default">
 									Buscar				
 								</button>
 							</div>
@@ -49,7 +49,7 @@
 										<td>{{$book->year}}</td>
 
 										<td>
-											<form action="/user/books/{{$book->id}}" method="GET">
+											<form action="{{route('viewBook', $book->id)}}" method="GET">
 												{{ csrf_field() }}
 												<button type="submit" class="btn btn-default btn-xs">
 													Ver
@@ -60,17 +60,7 @@
 									</tr>
 								@endforeach
 							</tbody>
-						</table>
-						<div class="col-md-offset-10">
-							<form action="/admin/books/addBook" method="GET">
-								{{ csrf_field() }}
-								<div class="form-group">
-									<button type="submit" class="btn btn-primary">
-										<i class="fa fa-btn fa-plus"></i>Agregar Libro
-									</button>
-								</div>
-							</form>
-						</div>					
+						</table>				
 				</div>
 				
 			</div>

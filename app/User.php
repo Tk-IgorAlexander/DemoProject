@@ -29,6 +29,11 @@ class User extends Authenticatable
         return $this->belongsTo('App\UserType', 'user_type_id', 'id');
     }
 
+    public function issued_logs()
+    {
+        return $this->hasMany('App\IssuedLogs', 'user_id', 'id');
+    }
+
 
     //This function returns de access level
     public function getType()

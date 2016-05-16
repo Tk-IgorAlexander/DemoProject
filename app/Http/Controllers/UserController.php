@@ -28,6 +28,6 @@ class UserController extends Controller
     public function approveUser(Request $request, User $user)
     {
         $user->approveUser();
-        return redirect('/admin/users');
+        return redirect(route('adminUsers'));
     }
 }

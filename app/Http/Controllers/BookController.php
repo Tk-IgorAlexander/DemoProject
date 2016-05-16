@@ -17,7 +17,7 @@ class BookController extends Controller
         $this->books = $books;
         $this->countries = $countries;        
     }
-    //
+    //ADMIN
     public function showBooks(Request $request)
     {
         
@@ -57,7 +57,7 @@ class BookController extends Controller
             'image_path' => $request->image_path,
             'desc' => $request->desc
             ]);
-        return redirect('/admin/books');
+        return redirect(url('/admin/books'));
     }
 
     public function editBook(Request $request, Book $book)
@@ -76,7 +76,32 @@ class BookController extends Controller
         $book->stock = $request->stock;
         $book->image_path = $request->image_path;
         $book->save();
-        return redirect('/admin/books');
+        return redirect(url('/admin/books'));
+    }
+
+    //USER
+
+    public function searchBooks(Request $request)
+    {
+        
+        return view('book.searchBooks', [
+            'books' => $this->books->findBook('************')
+            ]);
+    }
+
+    public function findBook(Request $request)
+    {
+        
+        return view('book.searchBooks', [
+            'books' => $this->books->findBook($request->str)
+            ]);
+    }
+
+    public function viewBook(Request $request, Book $book)
+    {
+        return view('book.viewBook', [
+            'book' => $book
+            ]);
     }
 }
 

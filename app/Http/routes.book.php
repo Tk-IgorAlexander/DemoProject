@@ -22,3 +22,11 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
 	Route::post('/admin/books/{book}/confirm', ['as' => 'modBook', 'uses' => 'BookController@modBook']);
 });
+
+Route::group(['middleware' => ['auth']], function () {
+	
+	Route::get('/user/books', 'BookController@searchBooks');
+	Route::post('/user/books', ['as' => 'findBook', 'uses' => 'BookController@findBook']);
+	Route::get('/user/books/{book}', ['as' => 'viewBook', 'uses' => 'BookController@viewBook']);
+
+});
