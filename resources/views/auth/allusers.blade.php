@@ -26,16 +26,16 @@
 										<td>{{$user->name}}</td>
 										<td>{{$user->email}}</td>
 										<td>
-										{{--
-										@if ($user->isApproved() == false)
-											<form action="/auth/{{$user->id}}" method="POST">
+										
+										@if ($user->isVerified() == false)
+											<form action="/admin/users/{{$user->id}}" method="POST">
 												{{ csrf_field() }}
 												<button type="submit" class="btn btn-primary">
 													Aprobar
 												</button>
 											</form>
 										@endif
-										--}}
+										
 										</td>
 										
 									</tr>

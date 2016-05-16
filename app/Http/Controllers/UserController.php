@@ -18,4 +18,16 @@ class UserController extends Controller
 						->get()
     		]);
     }
+
+    public function showVerificationRequire(Request $request)
+    {
+        
+    	return view('auth.notVerified');
+    }
+
+    public function approveUser(Request $request, User $user)
+    {
+        $user->approveUser();
+        return redirect('/admin/users');
+    }
 }
