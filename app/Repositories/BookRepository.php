@@ -9,13 +9,12 @@ use App\Publisher;
 class BookRepository
 {
     /**
-     * Get all of the books order by author's name.
-     *
-     * @return Collection
+     * Repository for Book, Author and Publisher's class
      */
     public function getBooks()
     {
         return Book::join('authors', 'books.author_id', '=', 'authors.id')
+                    ->select('books.*')
                     ->orderBy('authors.last_name','asc')
                     ->orderBy('authors.first_name','asc')
                     ->get();
