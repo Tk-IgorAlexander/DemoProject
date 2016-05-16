@@ -28,7 +28,7 @@
 										<td>
 										
 										@if ($user->isVerified() == false)
-											<form action="/admin/users/{{$user->id}}" method="POST">
+											<form action="{{ route('adminUser', $user->id) }}" method="POST">
 												{{ csrf_field() }}
 												<button type="submit" class="btn btn-primary">
 													Aprobar

@@ -13,8 +13,10 @@
 
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
-	Route::get('admin/users', 'UserController@showUsers');
-	Route::post('admin/users/{user}', 'UserController@approveUser');
+
+	Route::get('/admin/users', ['as' => 'adminUsers', 'uses' => 'UserController@showUsers']);
+	Route::post('/admin/users/{user}', ['as' => 'adminUser', 'uses' => 'UserController@approveUser']);
 });
 
-Route::get('user/notVerified', 'UserController@showVerificationRequire');
+Route::get('/user/notVerified', ['uses' => 'UserController@showVerificationRequire', 'as' => 'UserNotVerified']);
+
