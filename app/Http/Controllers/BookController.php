@@ -100,7 +100,19 @@ class BookController extends Controller
     public function viewBook(Request $request, Book $book)
     {
         return view('book.viewBook', [
-            'book' => $book
+            'book' => $book,
+            'date_selected' => false,
+            'date_stock' => 0
+            ]);
+    }
+
+    public function checkAvailability(Request $request, Book $book)
+    {
+        $request->flash();
+        return view('book.viewBook', [
+            'book' => $book,
+            'date_selected' => true,
+            'date_stock' => $book->stock - $this->books->countIssues($book->id, str_replace('/', '-', $request->doi))
             ]);
     }
 }

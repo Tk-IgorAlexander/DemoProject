@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Book;
 use App\Author;
 use App\Publisher;
+use App\IssuedLogs;
 
 class BookRepository
 {
@@ -37,7 +38,7 @@ class BookRepository
 
     public function getAuthors()
     {
-        return Author::orderBy('last_name','asc')
+        return Authsor::orderBy('last_name','asc')
                     ->orderBy('first_name','asc')
                     ->get();
     }
@@ -48,5 +49,15 @@ class BookRepository
     public function countPublishers()
     {
         return Publisher::count();
+    }
+
+    public function countIssues($book_id, $date)
+    {
+        return IssuedLogs::where([
+                    ['book_id', '=', $book_id],
+                    ['issued_at', '<=', $date],
+                    ['return_time', '>=', $date],
+                  ])
+                ->count();
     }
 }

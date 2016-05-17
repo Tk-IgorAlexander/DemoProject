@@ -9,8 +9,7 @@
 					Ver Libro
 				</div>
 				<div class="panel-body">
-					<form action="{{route('modBook', $book->id)}}" method="POST" class="form-horizontal">
-					{{ csrf_field() }}
+					<div class="form-horizontal">
 					  <fieldset disabled>	
 						<div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
 							<label class="col-md-4 control-label">Titulo</label>
@@ -24,38 +23,25 @@
 							</div>
 						</div>
 
-						<div class="form-group{{ $errors->has('author_id') ? ' has-error' : '' }}">
+						<div class="form-group">
 							<label class="col-md-4 control-label">Autor</label>
 							<div class="col-md-6">
-								<input class="form-control" name="author_id" placeholder="Ingrese codigo" value="{{$book->author_id}}">
-								@if ($errors->has('author_id'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('author_id') }}</strong>
-                                    </span>
-                                @endif
+								<input class="form-control" placeholder="Ingrese codigo" value="{{$book->author->first_name.' '.$book->author->last_name}}">
+								
 							</div>
 						</div>
-						<div class="form-group{{ $errors->has('publisher_id') ? ' has-error' : '' }}">
+						<div class="form-group">
 							<label class="col-md-4 control-label">Editorial</label>
 							<div class="col-md-6">
-								<input class="form-control" name="publisher_id" placeholder="Ingrese codigo" value="{{ $book->publisher_id }}">
-								@if ($errors->has('publisher_id'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('publisher_id') }}</strong>
-                                    </span>
-                            	@endif
+								<input class="form-control" name="publisher_id" placeholder="Ingrese codigo" value="{{ $book->publisher->name }}">
 							</div>
 						</div>
 
-						<div class="form-group{{ $errors->has('country_id') ? ' has-error' : '' }}">
+						<div class="form-group">
 							<label class="col-md-4 control-label">País</label>
 							<div class="col-md-6">
-								<input class="form-control" name="country_id" value="{{ $book->country_id }}">
-								@if ($errors->has('country_id'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('country_id') }}</strong>
-                                    </span>
-                                @endif
+								<input class="form-control" name="country_id" value="{{ $book->country->name }}">
+								
 							</div>
 						</div>
 						<div class="form-group{{ $errors->has('year') ? ' has-error' : '' }}">
@@ -83,29 +69,10 @@
                                 @endif
 							</div>
 						</div>
-					  </fieldset>
-						<div class="form-group{{ $errors->has('stock') ? ' has-error' : '' }}">
-							<label class="col-md-4 control-label">Stock</label>
+						<div class="form-group">
+							<label class="col-md-4 control-label">Descripcion</label>
 							<div class="col-md-6">
-								<input class="form-control" name="stock" placeholder="0" value="{{ $book->stock }}">
-
-                                @if ($errors->has('stock'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('stock') }}</strong>
-                                    </span>
-                                @endif
-							</div>
-						</div>
-						<div class="form-group{{ $errors->has('image_path') ? ' has-error' : '' }}">
-							<label class="col-md-4 control-label">URL de portada</label>
-							<div class="col-md-6">
-								<input class="form-control" name="image_path" placeholder=".jpg, .png, etc" value="{{ $book->image_path }}">
-
-                                @if ($errors->has('image_path'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('image_path') }}</strong>
-                                    </span>
-                                @endif
+								<textarea class="form-control" name="desc" rows="3" value="{{ $book->desc }}"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -113,21 +80,70 @@
 								 <img src="{{$book->image_path}}" class="img-thumbnail" alt="Cover book" width="200" height="400">
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="col-md-4 control-label">Descripcion</label>
-							<div class="col-md-6">
-								<textarea class="form-control" name="desc" rows="3" placeholder="Agregue la descripcion del libro aquí..." value="{{ $book->desc }}"></textarea>
-							</div>
-						</div>
 						
+					  </fieldset>
+					  <form action="{{route('checkAvailability', $book->id)}}" method="POST" class="form-horizontal">
+						{{ csrf_field() }}
+					  	<div class="form-group">
+							<label class="col-md-4 control-label">Disponibilidad</label>
+							<div class="col-md-6">
+								<div class='input-group date' id='datetimepicker1'>
+				                    <input type='text' name="doi" class="form-control" value="{{ old('doi') }}"/>
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar"></span>
+			                    	</span>
+			              		</div>
+							</div>
+							<script type="text/javascript">
+					            (function () {
+					                $('#datetimepicker1').datetimepicker({
+					                	format: 'YYYY/MM/DD'
+					                });
+					            })(jQuery);
+					        </script>
+						</div>
 						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
-									Aceptar
+                            <div class="col-md-6 col-md-offset-4">
+								<button type="submit" class="btn btn-default">
+									Ver Disponibilidad				
 								</button>
 							</div>
 						</div>
 					</form>
+					@if ($date_selected)
+						@if ($date_stock == 0)
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">Estado</label>
+							<div class="col-md-6">
+								<h3><span class="label label-danger">Agotado</span></h3>
+							</div>
+						</div>
+
+						@else
+
+						<div class="form-group">
+							<label class="col-md-4 control-label">Estado</label>
+							<div class="col-md-6">
+								<h3><span class="label label-success">Disponible</span></h3>
+								<span class="help-block">
+                                    <strong>Hay {{ $date_stock }}</strong>
+                                </span>						
+							</div>
+
+						</div>
+						
+						
+						<div class="form-group">
+							<div class="col-md-6 col-md-offset-4">
+								<button type="submit" class="btn btn-primary">
+									Reservar
+								</button>
+							</div>
+						</div>
+						@endif
+					@endif
+					</div>
 				</div>
 			</div>
 		</div>

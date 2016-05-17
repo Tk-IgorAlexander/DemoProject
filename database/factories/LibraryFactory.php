@@ -39,3 +39,12 @@ $factory->define(App\Book::class, function (Faker\Generator $faker) {
         'year' => $faker->year
     ];
 });
+
+$factory->define(App\IssuedLogs::class, function (Faker\Generator $faker) {
+    return [
+        'book_id' => App\Book::orderByRaw("RAND()")->first()->id,
+        'user_id' => App\User::orderByRaw("RAND()")->first()->id,
+        'issued_at' => $faker->dateTimeThisMonth,
+        'return_time' => $faker->dateTimeBetween('+1 day', '+1 month')
+    ];
+});

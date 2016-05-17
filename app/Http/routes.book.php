@@ -28,5 +28,6 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/user/books', 'BookController@searchBooks');
 	Route::post('/user/books', ['as' => 'findBook', 'uses' => 'BookController@findBook']);
 	Route::get('/user/books/{book}', ['as' => 'viewBook', 'uses' => 'BookController@viewBook']);
+	Route::post('/user/books/{book}', ['as' => 'checkAvailability', 'uses' => 'BookController@checkAvailability']);
 
 });
